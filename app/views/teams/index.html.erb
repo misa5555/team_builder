@@ -3,6 +3,16 @@
 <div class="members clearfix">
   <div class="current clearfix">
     <h3>Current Team Members</h3>
+    <div class="sort-function">
+      Sort By:
+      <span class="sort condition" data-sort="naturalists:desc">Naturalist</span>
+      <span class="sort condition" data-sort="mentors:desc">Mentor</span>
+      <span class="sort condition" data-sort="actions:desc">Action-Taker</span>
+      <span class="sort condition" data-sort="actions:desc">Inventor</span>
+      <span class="sort condition" data-sort="actions:desc">Planner</span>
+      <span class="sort condition" data-sort="actions:desc">Visionary</span>
+      <span class="sort condition" data-sort="actions:desc">Analyzer</span>
+    </div>
     <% (0..4).each do |i| %>
       <div class="panel panel-default clearfix card" id="<%= i %>">
         <div class="panel-body">
@@ -16,7 +26,7 @@
     <% end %>
   </div>
   <div class="rest">
-    <h3>Other Team Members</h3>
+    <h3>Candidates</h3>
     <div class="sort-function">
       Sort By:
       <span  value="Action Taker" class="sort condition" data-sort="naturalists:desc">Naturalist</span>
