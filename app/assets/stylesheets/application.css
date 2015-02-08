@@ -1,0 +1,68 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+/*
+ *= require jquery-ui/datepicker
+ */
+/*
+ *= require jquery-ui/core
+ *= require jquery-ui/theme
+ */
+/*
+ *= require jquery-ui/draggable
+ *= require jquery-ui/resizable
+ *= require jquery-ui/selectable
+ *= require jquery-ui/sortable
+ */
+@import "bootstrap";
+@import "font-awesome";
+@import "bootstrap-sprockets";
+@import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+.panel{
+  width: 200px;
+  float: left;
+}
+.name{
+  font-size:20px;
+  font-weight: bold;
+}
+.members{
+  width: 1200px;
+  margin: 60px;
+}
+.current{
+  width: 500px;
+  margin: 0px;
+  float: left;
+}
+.rest{
+  width: 600px;
+  float: right;
+}
+
+.clearfix:after{
+	content: "";
+	clear: both;
+	display: block;
+}
+.condition{
+  background-color:#336699;
+  padding: 5px;
+  color: white;
+}
+.sort-function{
+  margin: 5px;
+}

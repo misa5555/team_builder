@@ -1,0 +1,144 @@
+<%= content_tag "div", id: "container", data: {scores: @result_parsed, members: @members} do %>
+<% end %>
+<div class="members clearfix">
+  <div class="current clearfix">
+    <h3>Current Team Members</h3>
+    <% (0..4).each do |i| %>
+      <div class="panel panel-default clearfix card" id="<%= i %>">
+        <div class="panel-body">
+          <div class="name">
+            <%= @members[i] %>
+          </div>
+          <%= @personalities[i] %> :
+          <%= @scores[i][@personalities[i]] %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="rest">
+    <h3>Other Team Members</h3>
+    <div class="sort-function">
+      Sort By:
+      <span  value="Action Taker" class="sort condition" data-sort="naturalists:desc">Naturalist</span>
+      <span  value="Action Taker" class="sort condition" data-sort="mentors:desc">Mentor</span>
+      <span  value="Action Taker" class="sort condition" data-sort="actions:desc">Action-Taker</span>
+      <span  value="Action Taker" class="sort condition" data-sort="actions:desc">Inventor</span>
+      <span  value="Action Taker" class="sort condition" data-sort="actions:desc">Planner</span>
+      <span  value="Action Taker" class="sort condition" data-sort="actions:desc">Visionary</span>
+      <span  value="Action Taker" class="sort condition" data-sort="actions:desc">Analyzer</span>
+    </div>
+    <% (5..9).each do |i| %>
+      <div class="panel panel-default card mix" id="<%= i %>" data-actions="<%= @scores[i]["Action-Taker"]%>" data-naturalists="<%= @scores[i]["Naturalist"]%>" data-mentors="<%= @scores[i]["Mentor"] %>">
+        <div class="panel-body">
+          <div class="name">
+            <%= @members[i] %>
+          </div>
+          <%= @personalities[i] %> :
+          <%= @scores[i][@personalities[i]] %>
+        </div>
+      </div>
+      
+    <% end %>  
+  </div>
+  </div>
+</div>
+
+<script>
+$(function () {
+  var test = $('#container').data('scores');
+  $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Team Personality Details'
+        },
+        xAxis: {
+            categories: ['Naturalist', 'Mentor', 'Action-Taker', 'Inventor', 'Planner', 'Visionary', 'Analyzer']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total fruit consumption'
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            align: 'right',
+            x: -30,
+            verticalAlign: 'top',
+            y: 25,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+            borderColor: '#CCC',
+            borderWidth: 1,
+            shadow: false
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style: {
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Adam',
+            data: test[0] 
+        }, {
+            name: 'Ben',
+            data: test[1] 
+        }, {
+            name: 'Charles',
+            data: test[2] 
+        }, {
+            name: 'Dan',
+            data: test[3]
+        }, {
+            name: 'Edward',
+            data: test[4]
+        }]
+  });
+  $('.card').draggable();
+  
+  $('.current').droppable({
+    drop: function(event, ui) {
+      var dropped_num = ui.draggable.attr('id');
+      var dropped_data = $('#container').data('scores')[dropped_num];
+      var dropped_member = $('#container').data('members')[dropped_num];
+      var chart = $('#container').highcharts();
+      chart.addSeries({
+        name: dropped_member,
+        data: dropped_data
+      });
+    }
+  });
+  $('.rest').droppable({
+    drop: function(event, ui) {
+      var dropped_num = ui.draggable.attr('id');
+      var dropped_data = $('#container').data('scores')[dropped_num];
+      var dropped_member = $('#container').data('members')[dropped_num];
+      var chart = $('#container').highcharts();
+      chart.series[dropped_num].remove();
+    }
+  });
+  $('.rest').mixItUp();
+});
+</script>
